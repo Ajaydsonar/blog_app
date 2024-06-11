@@ -1,9 +1,10 @@
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import connection from "../db/connectionDB.js";
+import createConnection from "../db/connectionDB.js";
 import { hashPassword, isPasswordCorrect } from "../utils/hashPassword.js";
 
+const connection = createConnection();
 // register user
 const registerUser = asyncHandler(async (req, res) => {
   // get the username,email and password from user
@@ -24,33 +25,36 @@ const registerUser = asyncHandler(async (req, res) => {
     );
   }
 
-  const userAlreadyExistQuery =
-    "SELECT * FROM Users WHERE username = ? OR email = ?";
-  connection.query(userAlreadyExistQuery, [username, email], (err, result) => {
-    if (err)
-      throw new ApiError(500, "Internal server error" + `${err.message}`);
+  try {
+    const userAlreadyExistQuery =
+      "SELECT * FROM Users WHERE username = ? OR email = ?";
 
-    if (result.length > 0) {
+    const [results] = await (
+      await connection
+    ).execute(userAlreadyExistQuery, [username, email]);
+
+    if (results.length > 0) {
       throw new ApiError(409, "User already exists");
     }
-  });
 
-  const hashPass = await hashPassword(password);
+    const hashPass = await hashPassword(password);
 
-  const userInsertQuery =
-    "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)";
+    const userInsertQuery =
+      "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)";
 
-  connection.query(
-    userInsertQuery,
-    [username, email, hashPass],
-    (err, result) => {
-      if (err) throw new ApiError(500, "Internal server error");
+    const [insertResult] = await (
+      await connection
+    ).execute(userInsertQuery, [username, email, hashPass]);
 
-      res
-        .status(201)
-        .json(new ApiResponse(201, "User created successfully", result));
-    }
-  );
+    res.status(201).json(insertResult);
+  } catch (error) {
+    res.status(error.statusCode).json({
+      message: error.message,
+    });
+  }
 });
+
+//login User
+const loginUser = asyncHandler(async (req, res) => {});
 
 export { registerUser };

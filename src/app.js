@@ -13,7 +13,11 @@ import router from "./routes/user.Route.js";
 
 app.use("/api/v1/user", router);
 
-app.use((err, req, res, next) => {
-  res.json();
-});
+// app.use((err, req, res, next) => {
+//   res.status(err.statusCode).json({
+//     message: "Internal Server Error",
+//     err: err.message,
+//   });
+// });
+
 export { app };
