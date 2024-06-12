@@ -120,4 +120,110 @@ const verifyToken = asyncHandler((req, res, next) => {
   // });
 });
 
-export { registerUser, loginUser, verifyToken, connection };
+const updateUsername = asyncHandler(async (req, res) => {
+  // get username
+  //validate username
+  // update username
+  //send response
+
+  const { username } = req.body;
+  const oldUsername = req.user.username;
+
+  if (!username) throw new ApiError(400, "Please Provide the username");
+
+  const checkUserExistSQL = "SELECT * FROM Users WHERE username = ?";
+  const [checkUserExist] = await (
+    await connection
+  ).execute(checkUserExistSQL, [username]);
+
+  if (checkUserExist.length !== 0) {
+    throw new ApiError(400, "Username not available...");
+  }
+
+  const updateUsernameQuery =
+    "UPDATE Users SET username = ? WHERE username = ?";
+
+  const [results] = await (
+    await connection
+  ).execute(updateUsernameQuery, [username, oldUsername]);
+
+  req.user.username = username;
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, results, "Username Updated SuccessFully"));
+});
+
+const updateEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const oldEmail = req.user.email;
+
+  if (!email) throw new ApiError(400, "Please Provide the email");
+
+  const checkEmailExistSQL = "SELECT * FROM Users WHERE email = ?";
+
+  const [checkEmailExist] = await (
+    await connection
+  ).execute(checkEmailExistSQL, [email]);
+  if (checkEmailExist.length !== 0) {
+    throw new ApiError(400, "Email already exists");
+  }
+
+  const UpdateEmailSQL = "UPDATE Users SET email = ? WHERE email = ?";
+
+  const [results] = await (
+    await connection
+  ).execute(UpdateEmailSQL, [email, oldEmail]);
+
+  req.user.email = email;
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, results, "Email Updated SuccessFully"));
+});
+
+const updatePassword = asyncHandler(async (req, res) => {
+  const { password, oldPassword } = req.body;
+  const userID = req.user.user_id;
+  console.log("1 uid :", userID);
+
+  if (!(password && oldPassword)) {
+    throw new ApiError(400, "Please Provide the new password and old password");
+  }
+
+  const getUserSQL = "SELECT * FROM Users WHERE user_id = ?";
+
+  const [getUser] = await (await connection).execute(getUserSQL, [userID]);
+
+  const user = getUser[0];
+
+  console.log("1 uid :", user.user_id);
+
+  const isPasswordCorrect = bcrypt.compareSync(oldPassword, user.password);
+
+  if (!isPasswordCorrect) {
+    throw new ApiError(400, "Password is Incorrect");
+  }
+
+  const hashPass = await hashPassword(password);
+
+  const updatePasswordSQL = "UPDATE Users SET password = ? WHERE user_id = ?";
+
+  const [results] = await (
+    await connection
+  ).execute(updatePasswordSQL, [hashPass, userID]);
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, results, "Password Changed Successfully!"));
+});
+
+export {
+  registerUser,
+  loginUser,
+  verifyToken,
+  connection,
+  updateEmail,
+  updateUsername,
+  updatePassword,
+};
