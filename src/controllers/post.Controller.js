@@ -108,4 +108,39 @@ const updatePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, results, "Post Updated Successfully"));
 });
 
-export { createPost, getAllPostData, getSinglePostData, updatePost };
+//delete post
+const deletePost = asyncHandler(async (req, res) => {
+  const postID = Number(req.params.id);
+
+  const user_id = req.user.user_id;
+  if (!user_id) {
+    throw new ApiError(400, "Please Login");
+  }
+  if (!postID || isNaN(postID)) {
+    throw new ApiError(400, "Please Enter the valid Post ID");
+  }
+  const postBelongsToUser =
+    "SELECT * FROM Posts WHERE post_id = ? AND user_id = ?";
+
+  const [results] = await (
+    await connection
+  ).execute(postBelongsToUser, [postID, user_id]);
+
+  if (results.length === 0) {
+    throw new ApiError(400, "Post does not belong to you");
+  }
+  const deletePostQuery = "DELETE FROM Posts WHERE post_id = ?";
+  const [deletePost] = await (
+    await connection
+  ).execute(deletePostQuery, [postID]);
+
+  res.status(200).json(new ApiResponse(200, deletePost, "Post Deleted"));
+});
+
+export {
+  createPost,
+  getAllPostData,
+  getSinglePostData,
+  updatePost,
+  deletePost,
+};
