@@ -7,6 +7,11 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 const connection = createConnection();
+
+const options = {
+  httpOnly: true,
+  secure: true,
+};
 // register user
 const registerUser = asyncHandler(async (req, res) => {
   // get the username,email and password from user
@@ -81,11 +86,15 @@ const loginUser = asyncHandler(async (req, res) => {
       throw new ApiError(404, "Invalid Password");
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+    const payload = {
+      user_id: user.user_id,
+    };
+
+    const token = jwt.sign(payload, process.env.SECRET_KEY, {
       expiresIn: process.env.JWT_EXPIRY,
     });
 
-    res.status(200).send({ auth: true, token });
+    res.cookie("token", token, options).status(200).send({ auth: true, token });
   } catch (error) {
     res.status(error.statusCode).json({
       message: error.message,
@@ -95,14 +104,19 @@ const loginUser = asyncHandler(async (req, res) => {
 
 //verify token
 const verifyToken = asyncHandler((req, res, next) => {
-  const token = req.headers["x-access-token"];
+  const token = req.cookies.token;
+  console.log(token, "token");
   if (!token) throw new ApiError(409, "No Token Provided");
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) throw new ApiError(500, "Failed To Authenticate");
-    req.userId = decoded.id;
-    next();
-  });
+  const decoded = jwt.verify(token, process.env.SECRET_KEY);
+  req.userId = decoded?.user_id;
+  next();
+  // jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+  //   if (err) throw new ApiError(500, `${err.message}`);
+  //   console.log(decoded, "decoded");
+  //   req.userId = decoded.id;
+  //   next();
+  // });
 });
 
 export { registerUser, loginUser, verifyToken, connection };
