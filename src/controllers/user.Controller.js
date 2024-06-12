@@ -88,6 +88,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const payload = {
       user_id: user.user_id,
+      username: user.username,
+      email: user.email,
     };
 
     const token = jwt.sign(payload, process.env.SECRET_KEY, {
@@ -105,11 +107,10 @@ const loginUser = asyncHandler(async (req, res) => {
 //verify token
 const verifyToken = asyncHandler((req, res, next) => {
   const token = req.cookies.token;
-  console.log(token, "token");
   if (!token) throw new ApiError(409, "No Token Provided");
 
   const decoded = jwt.verify(token, process.env.SECRET_KEY);
-  req.userId = decoded?.user_id;
+  req.user = decoded;
   next();
   // jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
   //   if (err) throw new ApiError(500, `${err.message}`);

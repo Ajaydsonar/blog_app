@@ -1,13 +1,12 @@
-import jwt from "jsonwebtoken";
+const title = undefined;
+const content = undefined;
 
-const secret = "jsdfhafnsdfgd";
-
-const payload = {
-  id: 1,
-  name: "John",
-};
-
-const token = jwt.sign(payload, secret, { expiresIn: "1h" });
-
-const res = jwt.verify(token, secret);
-console.log(res);
+if (
+  title === undefined ||
+  content === undefined ||
+  !(title.trim() && content.trim())
+) {
+  console.log("Invalid title or content!");
+} else {
+  console.log("Valid title and content!");
+}
