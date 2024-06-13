@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
             postContainer.appendChild(item);
           });
         } else {
-          window.location.href = "http://localhost:3000/register";
+          console.log(data);
+          window.location.href = "http://localhost:3000/login";
         }
       })
       .catch((err) => console.error("Error featching Post : ", err));

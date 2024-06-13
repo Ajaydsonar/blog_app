@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         title.textContent = data.data.title;
         content.textContent = data.data.content;
         userid.textContent = data.data.user_id;
+      } else {
+        console.log(data);
+        window.location.href = "http://localhost:3000/login";
       }
     })
     .catch((err) => console.log(err));

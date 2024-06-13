@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
           postContainer.appendChild(post);
         });
       } else {
-        console.log("not ok");
         console.log(data);
+        window.location.href = "http://localhost:3000/login";
       }
     })
     .catch((err) => console.log(err));
