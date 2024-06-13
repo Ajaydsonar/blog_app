@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // window.location.href = "http://localhost:3000/login";
         // title.textContent = "404 User Not Found!";
         if (statusCode === 409) window.location.href = "/login";
+
         msg.textContent = "404 User Not Found!";
         alert(data.message);
         console.log(data.statusCode);
