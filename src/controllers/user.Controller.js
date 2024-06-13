@@ -229,22 +229,26 @@ const updatePassword = asyncHandler(async (req, res) => {
 });
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  const userId = req.params.id;
+  const userId = Number(req.params.id);
 
   if (!userId) {
     throw new ApiError(400, "Plase Provide UserID");
   }
-
+  console.log(userId);
   const getUserDetails = "SELECT username FROM Users WHERE user_id = ?";
 
-  const [resluts] = (await connection).execute(getUserDetails, [userId]);
+  const [resluts] = await (await connection).execute(getUserDetails, [userId]);
 
+  console.log(resluts);
   const username = resluts[0].username;
-
+  console.log(username);
   const gettUserPostsSQL =
     "SELECT title , post_id FROM Posts WHERE user_id = ?";
 
-  const [getUserPosts] = (await connection).execute(gettUserPostsSQL, [userId]);
+  const [getUserPosts] = await (
+    await connection
+  ).execute(gettUserPostsSQL, [userId]);
+  console.log(getUserPosts);
 
   res
     .status(200)

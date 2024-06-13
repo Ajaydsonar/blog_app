@@ -17,19 +17,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const item = document.createElement("div");
             const title = document.createElement("h3");
             const content = document.createElement("p");
-            const postID = document.createElement("span");
-            const userID = document.createElement("span");
+            const userID = document.createElement("a");
 
             title.textContent = post.title;
             content.textContent = post.content;
-            postID.textContent = post.post_id;
             userID.textContent = post.user_id;
 
-            console.log("uid :", userID, "  pid:", postID);
+            item.id = post.post_id;
+
+            userID.href = `/html/profile.html?userID=${post.user_id}`;
+
+            item.addEventListener("click", () => singlePost(post.post_id));
+
             item.appendChild(userID);
             item.appendChild(title);
             item.appendChild(content);
-            item.appendChild(postID);
             postContainer.appendChild(item);
           });
         } else {
@@ -41,3 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   fetchPost();
 });
+
+const singlePost = (postID) => {
+  const postURL = `/html/singlePost.html?postID=${postID}`;
+  window.location.href = postURL;
+};
