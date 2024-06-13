@@ -53,7 +53,9 @@ const registerUser = asyncHandler(async (req, res) => {
       await connection
     ).execute(userInsertQuery, [username, email, hashPass]);
 
-    res.status(201).json(insertResult);
+    res
+      .status(201)
+      .json(new ApiResponse(200, insertResult, "User signup successfully"));
   } catch (error) {
     res.status(error.statusCode).json({
       message: error.message,
@@ -98,10 +100,18 @@ const loginUser = asyncHandler(async (req, res) => {
 
     res.cookie("token", token, options).status(200).send({ auth: true, token });
   } catch (error) {
-    res.status(error.statusCode).json({
-      message: error.message,
-    });
+    res
+      .status(error.statusCode)
+      .json(new ApiError(error.statusCode, `${error.message}`));
   }
+});
+
+// logout user
+
+const logoutUser = asyncHandler(async (req, res) => {
+  res
+    .clearCookies("token", options)
+    .json(new ApiResponse(200, { logout: true }, "User logout Successfully!"));
 });
 
 //verify token
@@ -218,6 +228,35 @@ const updatePassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, results, "Password Changed Successfully!"));
 });
 
+const getUserProfile = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+
+  if (!userId) {
+    throw new ApiError(400, "Plase Provide UserID");
+  }
+
+  const getUserDetails = "SELECT username FROM Users WHERE user_id = ?";
+
+  const [resluts] = (await connection).execute(getUserDetails, [userId]);
+
+  const username = resluts[0].username;
+
+  const gettUserPostsSQL =
+    "SELECT title , post_id FROM Posts WHERE user_id = ?";
+
+  const [getUserPosts] = (await connection).execute(gettUserPostsSQL, [userId]);
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { username, Posts: getUserPosts },
+        "User Data Fetched SuccessFully"
+      )
+    );
+});
+
 export {
   registerUser,
   loginUser,
@@ -226,4 +265,6 @@ export {
   updateEmail,
   updateUsername,
   updatePassword,
+  logoutUser,
+  getUserProfile,
 };

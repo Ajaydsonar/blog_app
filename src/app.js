@@ -20,6 +20,21 @@ app.use("/api/v1/user", router);
 import postRouter from "./routes/post.Route.js";
 app.use("/api/v1/post", postRouter);
 
+// register
+app.get("/register", (req, res) => {
+  res.sendFile("/html/register.html", { root: "public" });
+});
+
+// login
+app.get("/login", (req, res) => {
+  res.sendFile("/html/login.html", { root: "public" });
+});
+
+// posts
+app.get("/post", (req, res) => {
+  res.sendFile("/html/index.html", { root: "public" });
+});
+
 // app.use((err, req, res, next) => {
 //   res.status(err.statusCode).json({
 //     message: "Internal Server Error",

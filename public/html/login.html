@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJ | Login</title>
+  </head>
+  <body>
+    <h1>login</h1>
+    <div>
+      <form method="post" onsubmit="loginUser(event)">
+        <div>
+          <label for="email">Enter Email :</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="ajay@ajay.com"
+            required
+          />
+        </div>
+
+        <br /><br />
+        <div>
+          <label for="password">Enter Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            minlength="8"
+            maxlength="15"
+          />
+        </div>
+        <br />
+        <button type="submit">login</button>
+        <br />
+        <p id="message-box"></p>
+      </form>
+    </div>
+    <script src="../js/login.js"></script>
+  </body>
+</html>

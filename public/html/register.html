@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AjBlog | sign Up</title>
+  </head>
+  <body>
+    <div>
+      <h1>Sign Up</h1>
+      <div>
+        <form method="post" id="register-form" onsubmit="registerUser(event)">
+          <div>
+            <label for="username">Enter Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="ajay"
+              required
+            />
+          </div>
+          <br />
+          <br />
+          <div>
+            <label for="email">Enter email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="ajay@ajay.com"
+              required
+            />
+          </div>
+          <br />
+          <br />
+          <div>
+            <label for="password">Enter Username</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="*****"
+              required
+              minlength="8"
+              maxlength="15"
+            />
+          </div>
+          <br />
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+      <h4 id="message-box"></h4>
+    </div>
+    <script src="../js/signup.js"></script>
+  </body>
+</html>
