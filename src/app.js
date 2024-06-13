@@ -31,7 +31,7 @@ app.get("/login", (req, res) => {
 });
 
 // posts
-app.get("/post", (req, res) => {
+app.get("/posts", (req, res) => {
   res.sendFile("/html/index.html", { root: "public" });
 });
 

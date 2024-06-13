@@ -19,7 +19,7 @@ function loginUser(event) {
       console;
       if (data.auth) {
         messageBox.textContent = data.message;
-        window.location.href = "http://localhost:3000/post";
+        window.location.href = "http://localhost:3000/posts";
       } else {
         messageBox.textContent = data.message;
       }
