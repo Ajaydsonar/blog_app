@@ -234,7 +234,14 @@ const getUserProfile = asyncHandler(async (req, res) => {
   if (!userId) {
     throw new ApiError(400, "Plase Provide UserID");
   }
-  console.log(userId);
+
+  const UserExistOrNot = "SELECT * FROM Users WHERE user_id = ?";
+  const [userExist] = await (
+    await connection
+  ).execute(UserExistOrNot, [userId]);
+
+  if (userExist.length === 0) throw new ApiError(404, "User Not Found");
+
   const getUserDetails = "SELECT username FROM Users WHERE user_id = ?";
 
   const [resluts] = await (await connection).execute(getUserDetails, [userId]);

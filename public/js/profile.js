@@ -1,5 +1,7 @@
 const username = document.getElementById("username");
 const postContainer = document.getElementById("user-posts");
+const msg = document.getElementById("message");
+let statusCode;
 
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
@@ -8,11 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const url = `http://localhost:3000/api/v1/user/profile/${userId}`;
 
   fetch(url)
-    .then((res) => res.json())
+    .then((res) => {
+      statusCode = res.status;
+      return res.json();
+    })
     .then((data) => {
       if (data.success) {
-        console.log("ok");
-
         username.textContent = data.data.username;
 
         data.data.Posts.forEach((element) => {
@@ -26,8 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
           postContainer.appendChild(post);
         });
       } else {
-        console.log(data);
-        window.location.href = "http://localhost:3000/login";
+        // window.location.href = "http://localhost:3000/login";
+        // title.textContent = "404 User Not Found!";
+        if (statusCode === 409) window.location.href = "/login";
+        msg.textContent = "404 User Not Found!";
+        alert(data.message);
+        console.log(data.statusCode);
       }
     })
     .catch((err) => console.log(err));

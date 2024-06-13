@@ -1,5 +1,6 @@
 const baseURL = "http://localhost:3000/api/v1";
-
+const user = document.getElementById("user");
+let statusCode;
 const postContainer = document.getElementById("post-container");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -10,7 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        statusCode = res.status;
+        return res.json();
+      })
       .then((data) => {
         if (data.success) {
           data.data.forEach((post) => {
@@ -35,8 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
             postContainer.appendChild(item);
           });
         } else {
-          console.log(data);
-          window.location.href = "http://localhost:3000/login";
+          console.log(data.statusCode);
+          alert(data.message);
+          if (statusCode === 409) window.location.href = "/login";
         }
       })
       .catch((err) => console.error("Error featching Post : ", err));

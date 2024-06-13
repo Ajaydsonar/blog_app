@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log(postID);
   const URL = `http://localhost:3000/api/v1/post/show/${postID}`;
   fetch(URL)
-    .then((res) => res.json())
+    .then((res) => {
+      statusCode = res.status;
+      return res.json();
+    })
     .then((data) => {
       if (data.success) {
         title.textContent = data.data.title;
@@ -17,7 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
         userid.textContent = data.data.user_id;
       } else {
         console.log(data);
-        window.location.href = "http://localhost:3000/login";
+        // window.location.href = "http://localhost:3000/login";
+        if (statusCode === 409) window.location.href = "/login";
+
+        alert(data.message);
+        title.textContent = "404 Post Not Found!";
       }
     })
     .catch((err) => console.log(err));
