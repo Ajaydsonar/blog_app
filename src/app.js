@@ -35,12 +35,5 @@ app.get("/posts", (req, res) => {
   res.sendFile("/html/index.html", { root: "public" });
 });
 
-// app.use((err, req, res, next) => {
-//   res.status(err.statusCode).json({
-//     message: "Internal Server Error",
-//     err: err.message,
-//   });
-// });
-
 app.use(errorHandler);
 export { app };

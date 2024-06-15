@@ -21,4 +21,7 @@ router.route("/update/username").put(verifyToken, updateUsername);
 router.route("/update/password").put(verifyToken, updatePassword);
 router.route("/logout").post(verifyToken, logoutUser);
 router.route("/profile/:id").get(verifyToken, getUserProfile);
+router.route("/active").get(verifyToken, (req, res) => {
+  res.json(req.user);
+});
 export default router;
