@@ -8,6 +8,12 @@ import bcrypt from "bcryptjs";
 
 const connection = createConnection();
 
+const generateToken = (user) => {
+  return jwt.sign(user, process.env.SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRY,
+  });
+};
+
 const options = {
   httpOnly: true,
   secure: true,
@@ -122,12 +128,6 @@ const verifyToken = asyncHandler((req, res, next) => {
   const decoded = jwt.verify(token, process.env.SECRET_KEY);
   req.user = decoded;
   next();
-  // jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-  //   if (err) throw new ApiError(500, `${err.message}`);
-  //   console.log(decoded, "decoded");
-  //   req.userId = decoded.id;
-  //   next();
-  // });
 });
 
 const updateUsername = asyncHandler(async (req, res) => {
@@ -137,8 +137,8 @@ const updateUsername = asyncHandler(async (req, res) => {
   //send response
 
   const { username } = req.body;
-  const oldUsername = req.user.username;
-
+  const userID = req.user.user_id;
+  console.log("ok 1 :", req.user);
   if (!username) throw new ApiError(400, "Please Provide the username");
 
   const checkUserExistSQL = "SELECT * FROM Users WHERE username = ?";
@@ -146,19 +146,28 @@ const updateUsername = asyncHandler(async (req, res) => {
     await connection
   ).execute(checkUserExistSQL, [username]);
 
+  console.log("checkUserExist :", checkUserExist);
   if (checkUserExist.length !== 0) {
     throw new ApiError(400, "Username not available...");
   }
 
-  const updateUsernameQuery =
-    "UPDATE Users SET username = ? WHERE username = ?";
+  const updateUsernameQuery = "UPDATE Users SET username = ? WHERE user_id = ?";
 
   const [results] = await (
     await connection
-  ).execute(updateUsernameQuery, [username, oldUsername]);
+  ).execute(updateUsernameQuery, [username, userID]);
 
   req.user.username = username;
 
+  const payload = {
+    user_id: req.user.user_id,
+    username: req.user.username,
+    email: req.user.email,
+  };
+
+  const newToken = generateToken(payload);
+  res.cookie("token", newToken, options);
+  console.log("ok2");
   res
     .status(200)
     .json(new ApiResponse(200, results, "Username Updated SuccessFully"));
@@ -166,8 +175,9 @@ const updateUsername = asyncHandler(async (req, res) => {
 
 const updateEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  const oldEmail = req.user.email;
+  const userID = req.user.user_id;
 
+  console.log("ok 1 :", req.user);
   if (!email) throw new ApiError(400, "Please Provide the email");
 
   const checkEmailExistSQL = "SELECT * FROM Users WHERE email = ?";
@@ -175,17 +185,26 @@ const updateEmail = asyncHandler(async (req, res) => {
   const [checkEmailExist] = await (
     await connection
   ).execute(checkEmailExistSQL, [email]);
+  console.log("checkEmailExist :", checkEmailExist);
   if (checkEmailExist.length !== 0) {
     throw new ApiError(400, "Email already exists");
   }
 
-  const UpdateEmailSQL = "UPDATE Users SET email = ? WHERE email = ?";
+  const UpdateEmailSQL = "UPDATE Users SET email = ? WHERE user_id = ?";
 
   const [results] = await (
     await connection
-  ).execute(UpdateEmailSQL, [email, oldEmail]);
+  ).execute(UpdateEmailSQL, [email, userID]);
 
   req.user.email = email;
+
+  const payload = {
+    user_id: req.user.user_id,
+    username: req.user.username,
+    email: req.user.email,
+  };
+  const newToken = generateToken(payload);
+  res.cookie("token", newToken, options);
 
   res
     .status(200)
@@ -195,7 +214,7 @@ const updateEmail = asyncHandler(async (req, res) => {
 const updatePassword = asyncHandler(async (req, res) => {
   const { password, oldPassword } = req.body;
   const userID = req.user.user_id;
-  console.log("1 uid :", userID);
+  console.log("1 check :", userID);
 
   if (!(password && oldPassword)) {
     throw new ApiError(400, "Please Provide the new password and old password");
@@ -250,7 +269,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const username = resluts[0].username;
   console.log(username);
   const gettUserPostsSQL =
-    "SELECT title , post_id FROM Posts WHERE user_id = ?";
+    "SELECT title , post_id FROM Posts WHERE user_id = ? ORDER BY DESC";
 
   const [getUserPosts] = await (
     await connection
@@ -268,6 +287,28 @@ const getUserProfile = asyncHandler(async (req, res) => {
     );
 });
 
+const UserMain = asyncHandler(async (req, res) => {
+  const username = req.user.username;
+  const userId = req.user.user_id;
+
+  const gettUserPostsSQL =
+    "SELECT title , post_id FROM Posts WHERE user_id = ? ORDER BY created_at  DESC";
+
+  const [getUserPosts] = await (
+    await connection
+  ).execute(gettUserPostsSQL, [userId]);
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { username, posts: getUserPosts },
+        "User Fetch succesfully"
+      )
+    );
+});
+
 export {
   registerUser,
   loginUser,
@@ -278,4 +319,5 @@ export {
   updatePassword,
   logoutUser,
   getUserProfile,
+  UserMain,
 };

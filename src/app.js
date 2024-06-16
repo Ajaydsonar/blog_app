@@ -18,6 +18,7 @@ app.use("/api/v1/user", router);
 
 //post router
 import postRouter from "./routes/post.Route.js";
+import { verifyToken } from "./controllers/user.Controller.js";
 app.use("/api/v1/post", postRouter);
 
 // register
@@ -33,6 +34,10 @@ app.get("/login", (req, res) => {
 // posts
 app.get("/posts", (req, res) => {
   res.sendFile("/html/index.html", { root: "public" });
+});
+
+app.get("/getusername", verifyToken, (req, res) => {
+  res.status(200).json({ username: req.user.username });
 });
 
 app.use(errorHandler);

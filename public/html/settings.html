@@ -8,15 +8,17 @@
   <body>
     <h2>settings</h2>
     <div>
-      <form id="username-box">
+      <form id="username-box" onsubmit="updateUsername(event)">
         <input type="text" id="username" />
         <button type="submit">Update</button>
       </form>
-      <form onsubmit="" id="email-box">
+      <br />
+      <form id="email-box" onsubmit="updateEmail(event)">
         <input type="email" id="email" />
         <button type="submit">Update</button>
       </form>
-      <form id="change-password">
+      <br />
+      <form id="change-password" onsubmit="changePassword(event)">
         <input
           type="password"
           id="newPassword"
@@ -30,6 +32,8 @@
         <button type="submit">Change</button>
       </form>
     </div>
+    <br />
+    <div><button id="logout" onclick="logout(event)">logout</button></div>
     <script src="../js/settings.js"></script>
   </body>
 </html>

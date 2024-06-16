@@ -48,9 +48,26 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   fetchPost();
+
+  function fetchUser() {
+    const userURL = "http://localhost:3000/getusername";
+
+    fetch(userURL)
+      .then((res) => res.json())
+      .then((data) => {
+        user.textContent = data.username;
+      })
+      .catch((err) => console.log(err));
+  }
+  fetchUser();
 });
 
 const singlePost = (postID) => {
   const postURL = `/html/singlePost.html?postID=${postID}`;
   window.location.href = postURL;
+};
+
+const viewUserDetails = (event) => {
+  console.log("ok");
+  window.location.href = `/html/userProfile.html?username=${user.textContent}`;
 };
