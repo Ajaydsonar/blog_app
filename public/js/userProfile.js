@@ -59,3 +59,7 @@ const deletePost = function (parentID) {
       }
     });
 };
+
+const editPost = function (parentID) {
+  window.location.href = "/html/";
+};
