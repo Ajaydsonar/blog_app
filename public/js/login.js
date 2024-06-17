@@ -1,4 +1,4 @@
-import config from "./config.js";
+const config = require("./config.js");
 
 const baseURL = `${config.apiBaseUrl}/api/v1`;
 const messageBox = document.getElementById("message-box");

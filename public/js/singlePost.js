@@ -1,4 +1,4 @@
-import config from "./config.js";
+const config = require("./config.js");
 
 const title = document.getElementById("title");
 const content = document.getElementById("content");

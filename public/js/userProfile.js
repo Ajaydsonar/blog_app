@@ -1,4 +1,4 @@
-import config from "./config.js";
+const config = require("./config.js");
 
 const postContainer = document.getElementById("post-container");
 const username = document.getElementById("username");

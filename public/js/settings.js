@@ -1,4 +1,4 @@
-import config from "./config.js";
+const config = require("./config.js");
 
 const URL = `${config.apiBaseUrl}/api/v1/user/active-setting`;
 const email = document.getElementById("email");
