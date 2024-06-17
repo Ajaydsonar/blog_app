@@ -21,6 +21,10 @@ import postRouter from "./routes/post.Route.js";
 import { verifyToken } from "./controllers/user.Controller.js";
 app.use("/api/v1/post", postRouter);
 
+app.get("/", (req, res) => {
+  res.sendFile("/html/main.html", { root: "public" });
+});
+
 // register
 app.get("/register", (req, res) => {
   res.sendFile("/html/register.html", { root: "public" });

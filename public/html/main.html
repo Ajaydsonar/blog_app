@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Micro Blogging Platform</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Additional styling specific to this example */
+      .header-bg {
+        /* background-image: url(""); */
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex flex-col items-center">
+    <!-- Header Section -->
+    <header
+      class="w-full bg-white shadow-md py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 z-50"
+    >
+      <!-- Logo/Website Name -->
+      <div class="text-xl font-semibold">
+        <a href="/" class="flex items-center space-x-2">
+          <img src="../assets/logo.png" alt="Logo" class="h-12 w-auto" />
+          <span>Micro Blogging</span>
+        </a>
+      </div>
+
+      <!-- User Authentication Links -->
+      <div class="flex items-center space-x-6">
+        <a href="/login" class="text-gray-600 hover:text-gray-900">Login</a>
+        <a
+          href="register"
+          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-bold"
+          >Sign Up</a
+        >
+      </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="mt-20 py-10 px-6 md:px-12 flex-1 max-w-5xl mx-auto">
+      <h1 class="text-4xl font-bold text-gray-800 mb-6">
+        Welcome to Micro Blogging Platform
+      </h1>
+
+      <!-- Features Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4">Key Features</h2>
+        <ul class="list-disc list-inside text-lg text-gray-700">
+          <li>Write and publish blog posts</li>
+          <li>Manage your own blog with ease</li>
+          <li>Customize your profile and avatar</li>
+          <li>Bookmark favorite posts for later</li>
+        </ul>
+      </section>
+
+      <!-- Coming Soon Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4">Coming Soon</h2>
+        <ul class="list-disc list-inside text-lg text-gray-700">
+          <li>Interactive commenting system</li>
+          <li>Post sharing options</li>
+          <li>Enhanced user profiles with statistics</li>
+          <li>Mobile app integration</li>
+        </ul>
+      </section>
+
+      <!-- About Section -->
+      <section class="text-lg text-gray-700 leading-relaxed mb-8">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4">
+          About Micro Blogging Platform
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac
+          ultrices ligula. Sed sodales nisi sit amet luctus varius. Proin
+          convallis placerat velit, in dictum lorem hendrerit et. Curabitur
+          aliquam augue non ante tincidunt, a pellentesque ex rhoncus. Aenean
+          eget odio purus. Cras sagittis purus nec lorem posuere, at fermentum
+          libero convallis. Phasellus bibendum mauris vitae lacinia cursus.
+        </p>
+        <p>
+          Nulla facilisi. Donec sit amet magna vitae quam semper sagittis. Ut
+          laoreet augue sed mauris rhoncus, ac commodo tellus suscipit. Aliquam
+          condimentum diam ut dictum auctor. Proin bibendum felis nec odio
+          finibus commodo. Donec posuere nunc et massa volutpat luctus.
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer
+      class="bg-gray-800 text-white py-6 px-6 flex justify-between items-center w-full"
+    >
+      <p>&copy; 2024 Micro Blogging Platform. All rights reserved.</p>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-300 hover:text-gray-400"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a href="#" class="text-gray-300 hover:text-gray-400"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="#" class="text-gray-300 hover:text-gray-400"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script>
+      // Dummy function to handle Go Back button click
+      function goBack(event) {
+        event.preventDefault();
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>
