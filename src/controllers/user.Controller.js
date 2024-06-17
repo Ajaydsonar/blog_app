@@ -17,6 +17,9 @@ const generateToken = (user) => {
 const options = {
   httpOnly: true,
   secure: true,
+  path: "/",
+  // sameSite: "none",
+  domain: "blog-app-ls6w.onrender.com",
 };
 // register user
 const registerUser = asyncHandler(async (req, res) => {
@@ -116,7 +119,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const logoutUser = asyncHandler(async (req, res) => {
   res
-    .clearCookies("token", options)
+    .clearCookie("token", options)
     .json(new ApiResponse(200, { logout: true }, "User logout Successfully!"));
 });
 
