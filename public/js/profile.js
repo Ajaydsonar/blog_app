@@ -1,3 +1,5 @@
+import config from "./config.js";
+
 const username = document.getElementById("username");
 const postContainer = document.getElementById("user-posts");
 const msg = document.getElementById("message");
@@ -8,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const pathParts = pathName.split("/");
   const userId = pathParts[pathParts.length - 1];
 
-  const url = `http://localhost:3000/api/v1/user/profile/${userId}`;
+  const url = `${config.apiBaseUrl}/api/v1/user/profile/${userId}`;
 
   fetch(url)
     .then((res) => {

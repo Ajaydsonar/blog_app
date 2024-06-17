@@ -21,7 +21,7 @@ function loginUser(event) {
       console;
       if (data.auth) {
         messageBox.textContent = data.message;
-        window.location.href = "http://localhost:3000/posts";
+        window.location.href = `${config.apiBaseUrl}/posts`;
       } else {
         messageBox.textContent = data.message;
       }

@@ -1,4 +1,6 @@
-const URL = "http://localhost:3000/api/v1/user/active-setting";
+import config from "./config.js";
+
+const URL = `${config.apiBaseUrl}/api/v1/user/active-setting`;
 const email = document.getElementById("email");
 const username = document.getElementById("username");
 
@@ -23,7 +25,7 @@ const updateEmail = function (event) {
   const newEmail = document.getElementById("email").value;
   const data = { email: newEmail };
 
-  const emailURL = "http://localhost:3000/api/v1/user/update/email";
+  const emailURL = `${config.apiBaseUrl}/api/v1/user/update/email`;
   fetch(emailURL, {
     method: "PUT",
     headers: {
@@ -46,7 +48,7 @@ const updateUsername = function (event) {
   const newUsername = document.getElementById("username").value;
   const data = { username: newUsername };
 
-  const updateUsernameURL = "http://localhost:3000/api/v1/user/update/username";
+  const updateUsernameURL = `${config.apiBaseUrl}/api/v1/user/update/username`;
 
   fetch(updateUsernameURL, {
     method: "PUT",
@@ -70,7 +72,7 @@ const changePassword = function (event) {
   const oldPassword = document.getElementById("oldPassword").value;
   const newPassword = document.getElementById("newPassword").value;
 
-  const changePasswordURL = "http://localhost:3000/api/v1/user/update/password";
+  const changePasswordURL = `${config.apiBaseUrl}/api/v1/user/update/password`;
 
   fetch(changePasswordURL, {
     method: "PUT",
@@ -92,7 +94,7 @@ const changePassword = function (event) {
 const logout = function (event) {
   event.preventDefault();
 
-  const logoutURL = "http://localhost:3000/api/v1/user/logout";
+  const logoutURL = `${config.apiBaseUrl}/api/v1/user/logout`;
   fetch(URL, {
     headers: {
       "Content-Type": "application/json",

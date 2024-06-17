@@ -1,3 +1,5 @@
+import config from "./config.js";
+
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 const userid = document.getElementById("userid");
@@ -11,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const postID2 = pathParts[pathParts.length - 1];
 
   // console.log(postID);
-  const URL = `http://localhost:3000/api/v1/post/show/${postID2}`;
+  const URL = `${config.apiBaseUrl}/api/v1/post/show/${postID2}`;
   fetch(URL)
     .then((res) => {
       statusCode = res.status;

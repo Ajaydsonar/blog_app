@@ -1,4 +1,6 @@
-const baseURL = "http://localhost:3000/api/v1";
+import config from "./config.js";
+
+const baseURL = `${config.apiBaseUrl}/api/v1`;
 function registerUser(event) {
   event.preventDefault();
 
@@ -19,7 +21,7 @@ function registerUser(event) {
     .then((data) => {
       if (data.success) {
         messageBox.textContent = data.message;
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = "/login";
       } else {
         messageBox.textContent = data.message;
       }

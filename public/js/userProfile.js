@@ -1,8 +1,10 @@
+import config from "./config.js";
+
 const postContainer = document.getElementById("post-container");
 const username = document.getElementById("username");
 
 document.addEventListener("DOMContentLoaded", function () {
-  const url = "http://localhost:3000/api/v1/user/active";
+  const url = `${config.apiBaseUrl}/api/v1/user/active`;
   fetch(url)
     .then((res) => {
       if (res.status === 409) window.location.href = "/login";
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const deletePost = function (parentID) {
-  const deleteURL = `http://localhost:3000/api/v1/post/delete/${parentID}`;
+  const deleteURL = `${config.apiBaseUrl}/api/v1/post/delete/${parentID}`;
 
   fetch(deleteURL, {
     method: "DELETE",
