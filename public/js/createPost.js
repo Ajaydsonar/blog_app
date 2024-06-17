@@ -1,8 +1,10 @@
+import config from "./config.js";
+
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 
 const createNewPost = () => {
-  const URL = "http://localhost:3000/api/v1/post/create";
+  const URL = `${config.apiBaseUrl}/api/v1/post/create`;
 
   fetch(URL, {
     method: "POST",

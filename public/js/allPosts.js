@@ -1,4 +1,7 @@
-const baseURL = "http://localhost:3000/api/v1";
+import config from "./config.js";
+
+const baseURL = `${config.apiBaseUrl}/api/v1`;
+
 const user = document.getElementById("user");
 const createPost = document.getElementById("create-post");
 let statusCode;
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchPost();
 
   function fetchUser() {
-    const userURL = "http://localhost:3000/getUserDetails";
+    const userURL = `${config.apiBaseUrl}/getUserDetails`;
 
     fetch(userURL)
       .then((res) => res.json())

@@ -1,4 +1,6 @@
-const baseURL = "http://localhost:3000/api/v1";
+import config from "./config.js";
+
+const baseURL = `${config.apiBaseUrl}/api/v1`;
 const messageBox = document.getElementById("message-box");
 
 function loginUser(event) {

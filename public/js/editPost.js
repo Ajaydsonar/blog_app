@@ -1,3 +1,5 @@
+import config from "./config.js";
+
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 const user = document.getElementById("username");
@@ -8,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const username = urlParams.get("username");
   user.textContent = username;
   console.log(postId);
-  const URL = `http://localhost:3000/api/v1/post/show/${postId}`;
+  const URL = `${config.apiBaseUrl}/api/v1/post/show/${postId}`;
 
   fetch(URL)
     .then((res) => {
@@ -45,7 +47,7 @@ const savePost = () => {
     content: content.textContent,
   };
 
-  const URL = `http://localhost:3000/api/v1/post/update/${postId}`;
+  const URL = `${config.apiBaseUrl}/api/v1/post/update/${postId}`;
   fetch(URL, {
     headers: {
       "Content-Type": "application/json",
