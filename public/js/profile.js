@@ -4,8 +4,12 @@ const msg = document.getElementById("message");
 let statusCode;
 
 document.addEventListener("DOMContentLoaded", function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = Number(urlParams.get("userID"));
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const userId = Number(urlParams.get("userID"));
+
+  const pathName = window.location.pathname;
+  const pathParts = pathName.split("/");
+  const userId = pathParts[pathParts.length - 1];
 
   const url = `http://localhost:3000/api/v1/user/profile/${userId}`;
 

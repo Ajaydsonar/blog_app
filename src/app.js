@@ -36,8 +36,34 @@ app.get("/posts", (req, res) => {
   res.sendFile("/html/index.html", { root: "public" });
 });
 
-app.get("/getusername", verifyToken, (req, res) => {
-  res.status(200).json({ username: req.user.username });
+app.get("/getUserDetails", verifyToken, (req, res) => {
+  res.status(200).json({ user: req.user });
+});
+
+app.get("/profile/:username", verifyToken, (req, res) => {
+  res.sendFile("/html/userProfile.html", { root: "public" });
+});
+
+app.get("/create/new", verifyToken, (req, res) => {
+  res.sendFile("/html/createPost.html", { root: "public" });
+});
+
+app.get("/posts/:id", (req, res) => {
+  res.sendFile("/html/singlePost.html", { root: "public" });
+});
+
+//get user profile
+app.get("/user/:user", (req, res) => {
+  res.sendFile("/html/profile.html", { root: "public" });
+});
+
+app.get("/settings", (req, res) => {
+  res.sendFile("/html/settings.html", { root: "public" });
+});
+
+//edit post
+app.get("/post/edit", (req, res) => {
+  res.sendFile("/html/edit.html", { root: "public" });
 });
 
 app.use(errorHandler);

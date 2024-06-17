@@ -3,11 +3,15 @@ const content = document.getElementById("content");
 const userid = document.getElementById("userid");
 
 document.addEventListener("DOMContentLoaded", function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const postID = urlParams.get("postID");
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const postID = urlParams.get("postID");
 
-  console.log(postID);
-  const URL = `http://localhost:3000/api/v1/post/show/${postID}`;
+  const pathName = window.location.pathname;
+  const pathParts = pathName.split("/");
+  const postID2 = pathParts[pathParts.length - 1];
+
+  // console.log(postID);
+  const URL = `http://localhost:3000/api/v1/post/show/${postID2}`;
   fetch(URL)
     .then((res) => {
       statusCode = res.status;

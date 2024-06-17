@@ -269,7 +269,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const username = resluts[0].username;
   console.log(username);
   const gettUserPostsSQL =
-    "SELECT title , post_id FROM Posts WHERE user_id = ? ORDER BY DESC";
+    "SELECT title , post_id FROM Posts WHERE user_id = ? ORDER BY created_at  DESC";
 
   const [getUserPosts] = await (
     await connection

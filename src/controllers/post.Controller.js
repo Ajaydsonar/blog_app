@@ -35,7 +35,7 @@ const createPost = asyncHandler(async (req, res) => {
 // get post data
 
 const getAllPostData = asyncHandler(async (req, res) => {
-  const getAllPost = "SELECT * FROM Posts";
+  const getAllPost = "SELECT * FROM Posts ORDER BY created_at DESC";
 
   const [results] = await (await connection).execute(getAllPost);
 

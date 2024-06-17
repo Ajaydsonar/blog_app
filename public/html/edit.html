@@ -6,10 +6,16 @@
     <title>Edit</title>
   </head>
   <body>
+    <div id="username"></div>
     <div>edit post</div>
     <div>
-      <h3>title</h3>
-      <p>content</p>
+      <h3 id="title">title</h3>
+      <p id="content">content</p>
+      <div>
+        <button id="cancel" onclick="cancelPost()">Cancel</button>
+        <button id="save" onclick="savePost()">Save</button>
+      </div>
     </div>
+    <script src="../js/editPost.js"></script>
   </body>
 </html>

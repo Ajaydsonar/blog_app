@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000/api/v1/user/active";
+const URL = "http://localhost:3000/api/v1/user/active-setting";
 const email = document.getElementById("email");
 const username = document.getElementById("username");
 

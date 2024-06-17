@@ -1,5 +1,6 @@
 const baseURL = "http://localhost:3000/api/v1";
 const user = document.getElementById("user");
+const createPost = document.getElementById("create-post");
 let statusCode;
 const postContainer = document.getElementById("post-container");
 
@@ -29,7 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             item.id = post.post_id;
 
-            userID.href = `/html/profile.html?userID=${post.user_id}`;
+            // userID.href = `/html/profile.html?userID=${post.user_id}`;
+            userID.href = `/user/${post.user_id}`;
 
             item.addEventListener("click", () => singlePost(post.post_id));
 
@@ -50,12 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchPost();
 
   function fetchUser() {
-    const userURL = "http://localhost:3000/getusername";
+    const userURL = "http://localhost:3000/getUserDetails";
 
     fetch(userURL)
       .then((res) => res.json())
       .then((data) => {
-        user.textContent = data.username;
+        user.textContent = data.user.username;
       })
       .catch((err) => console.log(err));
   }
@@ -63,11 +65,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const singlePost = (postID) => {
-  const postURL = `/html/singlePost.html?postID=${postID}`;
-  window.location.href = postURL;
+  // const postURL = `/html/singlePost.html?postID=${postID}`;
+  const postUR = `/posts/${postID}`;
+  window.location.href = postUR;
 };
 
 const viewUserDetails = (event) => {
   console.log("ok");
-  window.location.href = `/html/userProfile.html?username=${user.textContent}`;
+  window.location.href = `/profile/${user.textContent}`;
+};
+
+const createNewPost = (event) => {
+  window.location.href = "/create/new";
 };

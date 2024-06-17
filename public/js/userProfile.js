@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
           deleteBtn.textContent = "Delete";
           editBtn.textContent = "Edit";
 
+          editBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            window.location.href = `/post/edit?username=${data.data.username}&postId=${post.post_id}`;
+          });
+
           deleteBtn.addEventListener("click", function () {
             deletePost(post.post_id);
           });
@@ -58,8 +63,4 @@ const deletePost = function (parentID) {
         console.log(data);
       }
     });
-};
-
-const editPost = function (parentID) {
-  window.location.href = "/html/";
 };
