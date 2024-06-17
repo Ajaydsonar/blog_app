@@ -4,15 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aj</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <h1>single Post Page</h1>
-    <div>
-      <h2 id="title"></h2>
-      <p id="content"></p>
-      <span id="userid"></span>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="max-w-2xl w-full bg-white shadow-lg rounded-lg p-6">
+      <h1 class="text-2xl font-bold mb-4 text-center">Single Post Page</h1>
+      <div class="p-4">
+        <h2 id="title" class="text-xl font-semibold mb-2"></h2>
+        <p id="content" class="mb-4"></p>
+        <span id="userid" class="text-gray-600 text-sm"></span>
+      </div>
     </div>
 
+    <button
+      onclick="goBack(event)"
+      class="fixed left-4 top-4 flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+    >
+      <i class="fas fa-arrow-left"></i>
+      <!-- Font Awesome Icon -->
+      <span>Go Back</span>
+    </button>
     <script src="../js/singlePost.js"></script>
   </body>
 </html>

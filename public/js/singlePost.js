@@ -33,3 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((err) => console.log(err));
 });
+
+const goBack = (event) => {
+  window.location.href = "/posts";
+};

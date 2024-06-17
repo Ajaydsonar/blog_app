@@ -4,9 +4,6 @@ const msg = document.getElementById("message");
 let statusCode;
 
 document.addEventListener("DOMContentLoaded", function () {
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const userId = Number(urlParams.get("userID"));
-
   const pathName = window.location.pathname;
   const pathParts = pathName.split("/");
   const userId = pathParts[pathParts.length - 1];
@@ -24,19 +21,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         data.data.Posts.forEach((element) => {
           const post = document.createElement("div");
-          const title = document.createElement("h3");
+          post.classList.add(
+            "mb-4",
+            "p-4",
+            "bg-gray-200",
+            "rounded-md",
+            "shadow-md"
+          );
 
-          title.id = element.post_id;
+          const title = document.createElement("h3");
+          title.classList.add("text-lg", "font-semibold", "mb-2");
           title.textContent = element.title;
           post.appendChild(title);
+
+          const content = document.createElement("p");
+          content.textContent = element.content;
+          post.appendChild(content);
 
           postContainer.appendChild(post);
         });
       } else {
-        // window.location.href = "http://localhost:3000/login";
-        // title.textContent = "404 User Not Found!";
         if (statusCode === 409) window.location.href = "/login";
-
         msg.textContent = "404 User Not Found!";
         alert(data.message);
         console.log(data.statusCode);
@@ -44,3 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((err) => console.log(err));
 });
+
+const goBack = (event) => {
+  window.location.href = "/posts";
+};

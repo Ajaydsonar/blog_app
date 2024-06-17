@@ -101,3 +101,7 @@ const logout = function (event) {
   });
   window.location.href = "/login";
 };
+
+const goBack = (event) => {
+  window.location.href = "/posts";
+};

@@ -10,19 +10,37 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then((data) => {
       if (data.success) {
-        console.log("check i");
         username.textContent = data.data.username;
-        if (data.data.posts.length === 0)
-          postContainer.textContent = "No Posts Created By you";
+        if (data.data.posts.length === 0) {
+          postContainer.textContent = "No Posts Created By You";
+          postContainer.classList.add("text-center", "text-gray-500");
+        }
 
         data.data.posts.forEach((post) => {
-          console.log("woek");
           const postDiv = document.createElement("div");
           const title = document.createElement("h3");
           const deleteBtn = document.createElement("button");
           const editBtn = document.createElement("button");
-          deleteBtn.textContent = "Delete";
-          editBtn.textContent = "Edit";
+          deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+          editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+
+          editBtn.classList.add(
+            "bg-green-500",
+            "text-white",
+            "py-1",
+            "px-3",
+            "rounded",
+            "mr-2",
+            "hover:bg-green-700"
+          );
+          deleteBtn.classList.add(
+            "bg-red-500",
+            "text-white",
+            "py-1",
+            "px-3",
+            "rounded",
+            "hover:bg-red-700"
+          );
 
           editBtn.addEventListener("click", function (event) {
             event.preventDefault();
@@ -35,10 +53,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
           postDiv.id = post.post_id;
           title.textContent = post.title;
+          postDiv.classList.add(
+            "bg-white",
+            "p-4",
+            "shadow",
+            "rounded",
+            "flex",
+            "justify-between",
+            "items-center"
+          );
 
           postDiv.appendChild(title);
-          postDiv.appendChild(editBtn);
-          postDiv.appendChild(deleteBtn);
+          const buttonContainer = document.createElement("div");
+          buttonContainer.appendChild(editBtn);
+          buttonContainer.appendChild(deleteBtn);
+          postDiv.appendChild(buttonContainer);
 
           postContainer.appendChild(postDiv);
         });
@@ -67,4 +96,8 @@ const deletePost = function (parentID) {
         console.log(data);
       }
     });
+};
+
+const goBack = (event) => {
+  window.location.href = "/posts";
 };

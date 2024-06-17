@@ -3,54 +3,125 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AjBlog | sign Up</title>
+    <title>AjBlog | Sign Up</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div>
-      <h1>Sign Up</h1>
-      <div>
-        <form method="post" id="register-form" onsubmit="registerUser(event)">
-          <div>
-            <label for="username">Enter Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="ajay"
-              required
-            />
+  <body class="bg-gray-100">
+    <div
+      class="min-h-screen flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="max-w-md w-full space-y-8 bg-white p-6 rounded-lg shadow-lg">
+        <div>
+          <h2 class="text-3xl font-extrabold text-center text-gray-900">
+            Sign Up
+          </h2>
+          <p class="mt-2 text-sm text-center text-gray-600">
+            Enter your details below to create an account
+          </p>
+        </div>
+        <form
+          method="post"
+          id="register-form"
+          onsubmit="registerUser(event)"
+          class="mt-8 space-y-6"
+        >
+          <div class="relative">
+            <label
+              for="username"
+              class="block text-sm font-medium text-gray-700"
+              >Username</label
+            >
+            <div
+              class="flex items-center border border-gray-300 rounded-md shadow-sm"
+            >
+              <span class="flex items-center justify-center h-full px-3">
+                <i class="fas fa-user text-gray-400"></i>
+              </span>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="ajay"
+                required
+                class="block w-full py-2 pl-10 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
           </div>
-          <br />
-          <br />
-          <div>
-            <label for="email">Enter email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="ajay@ajay.com"
-              required
-            />
+          <div class="relative">
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >Email</label
+            >
+            <div
+              class="flex items-center border border-gray-300 rounded-md shadow-sm"
+            >
+              <span class="flex items-center justify-center h-full px-3">
+                <i class="fas fa-envelope text-gray-400"></i>
+              </span>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="ajay@ajay.com"
+                required
+                class="block w-full py-2 pl-10 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
           </div>
-          <br />
-          <br />
-          <div>
-            <label for="password">Enter Username</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="*****"
-              required
-              minlength="8"
-              maxlength="15"
-            />
+          <div class="relative">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700"
+              >Password</label
+            >
+            <div
+              class="flex items-center border border-gray-300 rounded-md shadow-sm"
+            >
+              <span class="flex items-center justify-center h-full px-3">
+                <i class="fas fa-lock text-gray-400"></i>
+              </span>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="*****"
+                required
+                minlength="8"
+                maxlength="15"
+                class="block w-full py-2 pl-10 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
           </div>
-          <br />
-          <button type="submit">Sign Up</button>
+          <div class="flex items-center justify-between">
+            <button
+              type="submit"
+              class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out"
+            >
+              Sign Up
+            </button>
+          </div>
+          <div class="text-sm text-center mt-4">
+            <span
+              >Already a User?
+              <a
+                href="/login"
+                class="font-medium text-blue-500 hover:text-blue-600"
+                >Login</a
+              ></span
+            >
+          </div>
         </form>
+        <div
+          class="text-center text-sm text-gray-600 mt-4"
+          id="message-box"
+        ></div>
       </div>
-      <h4 id="message-box"></h4>
     </div>
     <script src="../js/signup.js"></script>
   </body>

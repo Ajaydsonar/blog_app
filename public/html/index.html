@@ -3,18 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Aj | App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div>
-      <a href="/settings">settings</a> <br />
-      <button id="user" onclick="viewUserDetails(event)">user</button>
-      <button id="create-post" onclick="createNewPost(event)">
-        Create new post
+  <body class="bg-gray-100">
+    <div class="py-4 px-4">
+      <a href="/settings" class="text-blue-500 hover:text-blue-600">Settings</a>
+      <br />
+      <button
+        id="user"
+        onclick="viewUserDetails(event)"
+        class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out"
+      >
+        <i class="fas fa-user mr-2"></i> User
+      </button>
+      <button
+        id="create-post"
+        onclick="createNewPost(event)"
+        class="mt-4 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out"
+      >
+        <i class="fas fa-plus-circle mr-2"></i> Create New Post
       </button>
     </div>
-    <h1>posts</h1>
-    <div id="post-container"></div>
+    <div class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+      <h1 class="text-3xl font-extrabold text-center text-gray-900 mb-6">
+        Posts
+      </h1>
+      <div id="post-container" class="space-y-4"></div>
+    </div>
 
     <script src="../js/allPosts.js"></script>
   </body>
