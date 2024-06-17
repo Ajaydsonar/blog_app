@@ -22,6 +22,7 @@ import { verifyToken } from "./controllers/user.Controller.js";
 app.use("/api/v1/post", postRouter);
 
 app.get("/", (req, res) => {
+  if (req.cookies.token) return res.redirect("/posts");
   res.sendFile("/html/main.html", { root: "public" });
 });
 
