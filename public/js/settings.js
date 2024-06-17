@@ -97,7 +97,7 @@ const logout = function (event) {
   event.preventDefault();
 
   const logoutURL = `${config.apiBaseUrl}/api/v1/user/logout`;
-  fetch(URL, {
+  fetch(logoutURL, {
     headers: {
       "Content-Type": "application/json",
     },
