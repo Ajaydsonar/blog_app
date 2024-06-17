@@ -1,4 +1,6 @@
-const config = require("./config.js");
+const config = {
+  apiBaseUrl: window.location.origin, // Automatically uses the current origin
+};
 
 const title = document.getElementById("title");
 const content = document.getElementById("content");

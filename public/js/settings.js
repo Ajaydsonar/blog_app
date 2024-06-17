@@ -1,4 +1,6 @@
-const config = require("./config.js");
+const config = {
+  apiBaseUrl: window.location.origin, // Automatically uses the current origin
+};
 
 const URL = `${config.apiBaseUrl}/api/v1/user/active-setting`;
 const email = document.getElementById("email");

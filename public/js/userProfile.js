@@ -1,4 +1,6 @@
-const config = require("./config.js");
+const config = {
+  apiBaseUrl: window.location.origin, // Automatically uses the current origin
+};
 
 const postContainer = document.getElementById("post-container");
 const username = document.getElementById("username");
