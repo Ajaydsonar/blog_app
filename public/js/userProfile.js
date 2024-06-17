@@ -4,7 +4,10 @@ const username = document.getElementById("username");
 document.addEventListener("DOMContentLoaded", function () {
   const url = "http://localhost:3000/api/v1/user/active";
   fetch(url)
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === 409) window.location.href = "/login";
+      return res.json();
+    })
     .then((data) => {
       if (data.success) {
         console.log("check i");
@@ -40,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
           postContainer.appendChild(postDiv);
         });
       } else {
+        alert(data.message);
         console.log(data);
       }
     });

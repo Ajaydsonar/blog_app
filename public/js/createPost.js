@@ -14,7 +14,10 @@ const createNewPost = () => {
       content: content.value,
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === 409) window.location.href = "/login";
+      return res.json();
+    })
     .then((data) => {
       if (data.success) {
         alert("Post created successfully");

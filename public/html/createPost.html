@@ -7,13 +7,21 @@
   </head>
   <body>
     <div>
-      <input type="text" id="title" placeholder="enter title" /><br /><br />
+      <input
+        type="text"
+        id="title"
+        placeholder="enter title"
+        minlength="10"
+        maxlength="100"
+      /><br /><br />
       <textarea
         name="content"
         id="content"
         rows="10"
         cols="30"
         placeholder="enter content"
+        minlength="10"
+        maxlength="1000"
       ></textarea>
       <div>
         <button onclick="cancelPost(event)">cancel</button>

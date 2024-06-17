@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const URL = `http://localhost:3000/api/v1/post/show/${postId}`;
 
   fetch(URL)
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === 409) window.location.href = "/login";
+      return res.json();
+    })
     .then((data) => {
       console.log(data);
       if (data.success) {
